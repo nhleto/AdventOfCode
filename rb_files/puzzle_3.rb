@@ -1,8 +1,8 @@
 class Puzzle
   attr_accessor :map, :slope, :width, :height, :passports
   def initialize
-    @map = File.readlines('slope.txt').join.split("\n").map(&:chars)
-    @passports = File.open('passports.txt').read
+    @map = File.readlines('../txt_files/slope.txt').join.split("\n").map(&:chars)
+    @passports = File.open('../txt_files/passports.txt').read
     @width = @map[0].length
     @height = @map.length
   end
@@ -60,14 +60,7 @@ class Puzzle
   end
 
   def tertiary_parser(final_passports)
-    pass_array = []
-    valid_pasport1 = []
-    valid_pasport2 = []
-    valid_pasport3 = []
-    valid_pasport4 = []
-    valid_pasport5 = []
-    valid_pasport6 = []
-    valid_pasport7 = []
+    pass_array, valid_pasport1, valid_pasport2, valid_pasport3, valid_pasport4, valid_pasport5, valid_pasport6, valid_pasport7 = Array.new(8) { [] }
 
     final_passports.each { |pass| pass_array << pass.split(' ') }
     pass_array.each do |pass|
@@ -91,11 +84,11 @@ class Puzzle
     valid_pasport6.each do |pass|
       valid_pasport7 << pass if valid_passport_id(pass.find { |passp| passp.include?('pid') })
     end
-    p valid_pasport7.count
+    valid_pasport7.count
   end
 
   def valid_birth_year(input)
-    p input[/\d+/].to_i.between?(1920, 2002)
+    input[/\d+/].to_i.between?(1920, 2002)
   end
 
   def valid_issue_year(input)
@@ -129,4 +122,4 @@ class Puzzle
 end
 
 puz = Puzzle.new
-puz.passport_parser
+p puz.passport_parser
