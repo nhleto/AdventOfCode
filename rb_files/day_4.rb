@@ -6,10 +6,6 @@ class Puzzle
   end
 
   def boarding_parse
-    front_plane = {}
-    back_plane = {}
-    front_plane_all = []
-    back_plane_all = []
     boarding_pass.each do |pass|
       pass[0] == 'F' ? front_plane_all << pass : back_plane_all << pass
     end
@@ -17,6 +13,7 @@ class Puzzle
 
   def finder(input, letter, arr)
     return arr.first if arr.length == 1
+
     if input[0] == letter
       finder(input[1..-1], letter, arr[0..((arr.length / 2) - 1)])
     else
@@ -25,12 +22,13 @@ class Puzzle
   end
 
   def output
-    output = input.map do |bsp|
-      finder(bsp[0..6], "F", [*0..127]) * 8 + finder(bsp[7..9], "L", [*0..7])
+    input.map do |bsp|
+      finder(bsp[0..6], 'F', [*0..127]) * 8 + finder(bsp[7..9], 'L', [*0..7])
     end
   end
+
   def output_min
-    p *[*output.min..output.max] - output
+    p(*[*output.min..output.max] - output)
   end
 end
 
