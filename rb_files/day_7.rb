@@ -1,6 +1,6 @@
 class Bag
   @list = []
-  attr_accessor :should_contain, :style, :color
+  attr_accessor :style, :color
 
   class << self
     def find(style, color)
